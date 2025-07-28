@@ -37,7 +37,7 @@ export default function DashboardScreen() {
     const [customers, setCustomers] = useState<Customer[]>([]);
     const [loading, setLoading] = useState(true);
     const [refreshing, setRefreshing] = useState(false);
-    const { user, token } = useAuth();
+    const { user, token, isLoading } = useAuth();
     const router = useRouter();
 
     const fetchCustomers = async () => {
@@ -82,8 +82,10 @@ export default function DashboardScreen() {
     };
 
     useEffect(() => {
-        fetchCustomers();
-    }, []);
+        if (!isLoading) {
+            fetchCustomers();
+        }
+    }, [isLoading, token]);
 
     const onRefresh = () => {
         setRefreshing(true);
