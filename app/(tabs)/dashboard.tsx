@@ -13,6 +13,7 @@ interface ApiResponseCustomer {
     interest_rate: string;
     tenure: number;
     emi_due: string;
+    outstanding_balance: string;
     created_at: string;
 }
 
@@ -67,7 +68,7 @@ export default function DashboardScreen() {
                     emi_amount: parseFloat(customer.emi_due),
                     emi_due_date: 5, // Placeholder: Add to your DB
                     total_paid: 250000, // Placeholder: Add to your DB
-                    outstanding_amount: 250000, // Placeholder: Add to your DB
+                    outstanding_amount: parseFloat(customer.outstanding_balance),
                     status: index % 2 === 0 ? 'active' : 'inactive', // Placeholder
                     is_overdue: index % 3 === 0, // Placeholder
                 }));
@@ -136,7 +137,10 @@ export default function DashboardScreen() {
                         onPress={() =>
                             router.push({
                                 pathname: '/(tabs)/payments',
-                                params: { customer: JSON.stringify(customer) },
+                                params: {
+                                    customer: JSON.stringify(customer),
+                                    account_number: customer.account_number
+                                },
                             })
                         }
                     >
@@ -238,7 +242,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     header: {
-        margin: 16,
         padding: 16,
         elevation: 2,
     },
@@ -260,10 +263,10 @@ const styles = StyleSheet.create({
         height: 32,
     },
     activeChip: {
-        backgroundColor: '#e8f5e8',
+        backgroundColor: '#00b300',
     },
     inactiveChip: {
-        backgroundColor: '#ffeaa7',
+        backgroundColor: '#e74c3c',
     },
     detailsGrid: {
         flexDirection: 'row',
