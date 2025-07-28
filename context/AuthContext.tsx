@@ -47,7 +47,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                     if (data.valid) {
                         setToken(storedToken);
                         setUser(data.user);
-                        router.replace('/(tabs)/dashboard');
                     } else {
                         await AsyncStorage.removeItem('auth_token');
                     }
@@ -83,7 +82,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                 setToken(data.token);
                 setUser(data.user);
                 await AsyncStorage.setItem('auth_token', data.token);
-                router.replace('/(tabs)/dashboard');
                 return true;
             } catch (jsonError) {
                 console.error('Failed to parse JSON response:', jsonError);
@@ -112,7 +110,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                 setToken(data.token);
                 setUser(data.user);
                 await AsyncStorage.setItem('auth_token', data.token);
-                router.replace('/(tabs)/dashboard');
                 return true;
             } else {
                 console.error('Registration failed:', data.error);

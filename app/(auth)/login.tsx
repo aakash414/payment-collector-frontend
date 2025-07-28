@@ -1,4 +1,4 @@
-import { Link } from 'expo-router';
+import { Link, useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import { Alert, StyleSheet, View } from 'react-native';
 import { Button, Card, HelperText, TextInput, Title } from 'react-native-paper';
@@ -10,6 +10,7 @@ export default function LoginScreen() {
     const [loading, setLoading] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const { login } = useAuth();
+    const router = useRouter();
 
     const handleLogin = async () => {
         if (!email.trim() || !password.trim()) {
@@ -20,7 +21,9 @@ export default function LoginScreen() {
         setLoading(true);
         try {
             const success = await login(email.trim(), password);
-            if (!success) {
+            if (success) {
+                router.replace('/(tabs)/dashboard');
+            } else {
                 Alert.alert('Login Failed', 'Invalid email or password');
             }
         } catch (error) {

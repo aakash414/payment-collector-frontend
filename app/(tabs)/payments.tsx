@@ -359,7 +359,7 @@ const styles = StyleSheet.create({
   customerDetails: {
     marginTop: 15,
     padding: 15,
-    backgroundColor: '#e8f5e8',
+    backgroundColor: '##25232a',
   },
   customerName: {
     fontWeight: 'bold',

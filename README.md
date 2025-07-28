@@ -1,50 +1,87 @@
-# Welcome to your Expo app 👋
+# Payment Collector App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A modern, full-stack mobile application for managing and collecting loan payments, built with React Native and a Node.js/Express backend.
 
-## Get started
+| Dashboard | Payments Screen |
+| :---: | :---: |
+| <img src="assets/screenshots/dashboard.png" alt="Dashboard" width="300"/> | <img src="assets/screenshots/payments.png" alt="Payments Screen" width="300"/> |
 
-1. Install dependencies
+## Overview
 
-   ```bash
-   npm install
-   ```
+This application provides a seamless experience for both collection agents and customers. Agents can view customer loan accounts, track payment statuses, and record new payments. The app features a secure authentication system and a clear, intuitive user interface.
 
-2. Start the app
+## Features
 
-   ```bash
-   npx expo start
-   ```
+- **Secure Authentication**: User registration and login with token-based authentication.
+- **Customer Dashboard**: View a list of all loan accounts with key details like outstanding amount, EMI, and due dates.
+- **Payment Processing**: A dedicated screen to make and record payments for a specific account.
+- **Payment History**: View a history of payments for each account (functionality in `payments.tsx`).
+- **Real-time Validation**: Input validation for payment amounts and account numbers.
+- **Pull-to-Refresh**: Easily refresh the customer list on the dashboard.
 
-In the output, you'll find options to open the app in a
+## Tech Stack
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+- **Frontend**:
+  - [React Native](https://reactnative.dev/)
+  - [Expo](https://expo.dev/) (with Expo Router for file-based routing)
+  - [React Native Paper](https://reactnativepaper.com/) for UI components
+  - [React Context API](https://reactjs.org/docs/context.html) for state management
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## Getting Started
 
-## Get a fresh project
+### Prerequisites
 
-When you're ready, run:
+- Node.js (v18 or later)
+- npm or yarn
+- Expo Go app on your mobile device or an Android/iOS emulator.
 
-```bash
-npm run reset-project
+### Installation & Setup
+
+1.  **Clone the repository:**
+    ```bash
+    git clone <repository-url>
+    cd payment-collector-frontend
+    ```
+
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
+
+3.  **Set up the environment variables:**
+    Create a `config.ts` file in the root directory and add your API base URL:
+    ```typescript
+    export const API_BASE_URL = 'http://localhost:3001/api';
+    ```
+
+4.  **Run the application:**
+    ```bash
+    npx expo start
+    ```
+    Scan the QR code with the Expo Go app on your phone, or run it on a simulator.
+
+## Project Structure
+
+```
+.
+├── app/                # Main application folder with screens
+│   ├── (auth)/         # Authentication screens (login, register)
+│   └── (tabs)/         # Main app screens after login (dashboard, payments)
+├── assets/             # Images, fonts, and other static assets
+│   └── screenshots/    # App screenshots
+├── components/         # Reusable components (if any)
+├── context/            # Global state management (AuthContext)
+├── config.ts           # API configuration
+└── ...                 # Other configuration files
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## API Endpoints
 
-## Learn more
+The frontend interacts with a backend API. The key endpoints are:
 
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- `POST /api/auth/register`: Create a new user account.
+- `POST /api/auth/login`: Log in a user and get an authentication token.
+- `GET /api/auth/verify`: Verify an existing token.
+- `GET /api/customers/:userId`: Get all loan accounts for a specific user.
+- `GET /api/payments/:account_number`: Get payment history for an account.
+- `POST /api/payments`: Submit a new payment for an account.

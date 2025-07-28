@@ -1,4 +1,4 @@
-import { Link } from 'expo-router';
+import { Link, useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import { Alert, StyleSheet, View } from 'react-native';
 import { Button, Card, HelperText, TextInput, Title } from 'react-native-paper';
@@ -12,6 +12,7 @@ export default function RegisterScreen() {
     const [loading, setLoading] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const { register } = useAuth();
+    const router = useRouter();
 
     const validateEmail = (email: string) => {
         return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -41,7 +42,9 @@ export default function RegisterScreen() {
         setLoading(true);
         try {
             const success = await register(username.trim(), email.trim(), password);
-            if (!success) {
+            if (success) {
+                router.replace('/(tabs)/dashboard');
+            } else {
                 Alert.alert('Registration Failed', 'email might already exist');
             }
         } catch (error) {
