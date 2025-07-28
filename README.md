@@ -15,7 +15,6 @@ This application provides a seamless experience for both collection agents and c
 - **Secure Authentication**: User registration and login with token-based authentication.
 - **Customer Dashboard**: View a list of all loan accounts with key details like outstanding amount, EMI, and due dates.
 - **Payment Processing**: A dedicated screen to make and record payments for a specific account.
-- **Payment History**: View a history of payments for each account (functionality in `payments.tsx`).
 - **Real-time Validation**: Input validation for payment amounts and account numbers.
 - **Pull-to-Refresh**: Easily refresh the customer list on the dashboard.
 
